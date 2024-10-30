@@ -1,26 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDispositivoDto } from './dto/create-dispositivo.dto';
 import { UpdateDispositivoDto } from './dto/update-dispositivo.dto';
+import { Dispositivo } from './entities/dispositivo.entity';
 
 @Injectable()
 export class DispositivosService {
-  create(createDispositivoDto: CreateDispositivoDto) {
-    return 'This action adds a new dispositivo';
+
+dispositivo: Dispositivo[] = [];  
+
+constructor() {
+  this.dispositivo.push(new Dispositivo('94211476-8d5c-4c23-a0f5-0e4d23d84cee', 'NOT-01', 'Samsung', 'Modelo1', 'NUEVO', 1));
+  this.dispositivo.push(new Dispositivo('0f749b14-4340-49fe-9320-a511a7e5e0ce', 'SMA-06', 'Acer', 'Modelo6', 'FUERA_DE_SERVICIO', 2));
+}
+
+  create(createDispositivoDto: CreateDispositivoDto): string {
+    this.dispositivo.push(new Dispositivo(createDispositivoDto.id, createDispositivoDto.codigo, createDispositivoDto.marca, createDispositivoDto.modelo, createDispositivoDto.estado, createDispositivoDto.id_categoria));
+    return 'Dispositivo creado con éxito';
   }
 
-  findAll() {
-    return `This action returns all dispositivos`;
+  findAll(): Dispositivo[] {
+    return this.dispositivo;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dispositivo`;
-  }
-
-  update(id: number, updateDispositivoDto: UpdateDispositivoDto) {
-    return `This action updates a #${id} dispositivo`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} dispositivo`;
-  }
 }

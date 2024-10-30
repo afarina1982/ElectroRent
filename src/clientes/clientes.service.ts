@@ -1,26 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
+import { Cliente } from './entities/cliente.entity';
 
 @Injectable()
 export class ClientesService {
-  create(createClienteDto: CreateClienteDto) {
-    return 'This action adds a new cliente';
+  private clientes: Cliente[] = [];
+
+  constructor() {
+    this.clientes.push(new Cliente('17.669.435-4', 'Cliente 4', 'cliente4@gmail.com', 'Calle 4 Nº607'));
+    this.clientes.push(new Cliente('11.632.388-5', 'Cliente 5', 'cliente5@gmail.com', 'Calle 5 Nº321'));
+    this.clientes.push(new Cliente('19.784.104-7', 'Cliente 7', 'cliente7@gmail.com', 'Calle 7 Nº564'));
   }
 
-  findAll() {
-    return `This action returns all clientes`;
+  create(createClienteDto: CreateClienteDto): string {
+    this.clientes.push(new Cliente(createClienteDto.rut, createClienteDto.nombre, createClienteDto.correo, createClienteDto.direccion));
+    return 'Cliente created successfully';
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cliente`;
+  findAll():Cliente[] {
+    return this.clientes;
   }
 
-  update(id: number, updateClienteDto: UpdateClienteDto) {
-    return `This action updates a #${id} cliente`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cliente`;
-  }
 }

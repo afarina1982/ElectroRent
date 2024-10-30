@@ -17,18 +17,4 @@ export class DispositivosController {
     return this.dispositivosService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.dispositivosService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDispositivoDto: UpdateDispositivoDto) {
-    return this.dispositivosService.update(+id, updateDispositivoDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dispositivosService.remove(+id);
-  }
 }

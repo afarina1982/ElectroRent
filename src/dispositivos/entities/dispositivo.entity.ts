@@ -19,4 +19,13 @@ export class Dispositivo {
    
    @Column()
     public id_categoria: number;
+
+    constructor(id: string, codigo: string, marca: string, modelo: string, estado: string, id_categoria: number) {
+        this.id = id;
+        this.codigo = codigo;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.estado = estado;
+        this.id_categoria = id_categoria;
+    }
 }

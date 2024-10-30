@@ -13,4 +13,11 @@ export class Cliente {
 
     @Column()
     public direccion: string;
+
+    constructor(rut: string, nombre: string, correo: string, direccion: string) {
+        this.rut = rut;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.direccion = direccion;
+    }
 }
