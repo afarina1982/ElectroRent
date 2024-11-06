@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { Cliente } from '../orm/entity/cliente.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -20,10 +20,10 @@ export class ClientesService {
     return ClienteMapper.entityToDto(clienteGuardado);
   }
   
-
-  /*findAll():Cliente[] {
-    return this.clientes;
-  }*/
+async findAll(): Promise<GetClienteDto[]> {
+  const clientesGuardados = await this.clienteRepository.find();
+  return clientesGuardados.map(cliente => ClienteMapper.entityToDto(cliente));
+}
 
 }
 

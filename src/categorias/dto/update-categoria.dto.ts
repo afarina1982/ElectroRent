@@ -12,3 +12,4 @@ export class UpdateCategoriaDto extends PartialType(CreateCategoriaDto) {
     @ApiProperty()
     public nombre: string;
 }
+

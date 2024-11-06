@@ -11,8 +11,6 @@ export class Categoria {
     @OneToMany(() => Dispositivo, d => d.categoria)
     dispositivos:Dispositivo[];
 
-    constructor(id: number, nombre: string) {
-        this.id = id;
-        this.nombre = nombre;
     }
-}
+
+

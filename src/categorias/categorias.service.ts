@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
-import { UpdateCategoriaDto } from './dto/update-categoria.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Categoria } from '../orm/entity/categoria.entity';
+import { GetCategoriaDto } from './dto/get-create-categoria';
+import { CategoriaMapper } from './mapper/categoria.mapper';
 
 @Injectable()
 export class CategoriasService {
-  create(createCategoriaDto: CreateCategoriaDto) {
-    return 'This action adds a new categoria';
+
+constructor(
+  @InjectRepository(Categoria) private readonly categoriaRepository: Repository<Categoria>,
+)
+ {}
+
+  async create(createCategoriaDto: CreateCategoriaDto): Promise<GetCategoriaDto> {
+    const categoria: Categoria = CategoriaMapper.dtoToEntity(createCategoriaDto);
+    const categoriaGuardada = await this.categoriaRepository.save(categoria);
+    return CategoriaMapper.entityToDto(categoriaGuardada);
   }
 
-  findAll() {
-    return `This action returns all categorias`;
+  async findAll(): Promise<GetCategoriaDto[]> {
+    const categoriasGuardadas = await this.categoriaRepository.find();
+    return categoriasGuardadas.map(categoria => CategoriaMapper.entityToDto(categoria));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} categoria`;
-  }
-
-  update(id: number, updateCategoriaDto: UpdateCategoriaDto) {
-    return `This action updates a #${id} categoria`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} categoria`;
-  }
 }
+

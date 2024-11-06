@@ -1,11 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { version } from 'os';
 import { ClientesModule } from './clientes/clientes.module';
+import { ValidationPipe } from '@nestjs/common';
+import { CategoriasModule } from './categorias/categorias.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+app.useGlobalPipes(new ValidationPipe({
+  whitelist: true,
+  forbidNonWhitelisted: true,
+  transform: true,
+}),
+);
+
+
   const config = new DocumentBuilder()
   .setTitle('API')
   .setDescription('description')
@@ -14,7 +24,7 @@ async function bootstrap() {
   .build();
 
 const document = SwaggerModule.createDocument(app, config, {
-  include: [ClientesModule],
+  include: [ClientesModule,CategoriasModule],
 });
 
 SwaggerModule.setup('api', app, document, {yamlDocumentUrl: 'swagger/yaml',});

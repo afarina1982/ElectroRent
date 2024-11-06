@@ -6,7 +6,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class UpdateClienteDto extends PartialType(CreateClienteDto) {
     @IsNotEmpty({ message: 'El rut del usuario es requerido' })
     @IsString()
-    @Length(9, 10, { message: 'El rut del usuario debe tener entre 9 y 10 caracteres' })
+    @Length(11, 12, { message: 'El rut del usuario debe tener entre 9 y 10 caracteres' })
     @Matches(/^\d{1,2}\.\d{3}\.\d{3}-[0-9kK]$/, { message: 'El rut debe tener el formato xx.xxx.xxx-x' })
     @ApiProperty({ description: 'RUT del cliente en formato xx.xxx.xxx-x', example: '12.345.678-9' })
     public rut: string;
