@@ -1,25 +1,29 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateClienteDto } from './dto/create-cliente.dto';
-import { UpdateClienteDto } from './dto/update-cliente.dto';
 import { Cliente } from '../orm/entity/cliente.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ClienteMapper } from './mapper/cliente.mapper'; 
+import { GetClienteDto } from './dto/get-create-cliente.dto';
 
 @Injectable()
 export class ClientesService {
-  private clientes: Cliente[] = [];
 
-  constructor() {
-    this.clientes.push(new Cliente('17.669.435-4', 'Cliente 4', 'cliente4@gmail.com', 'Calle 4 Nº607'));
-    this.clientes.push(new Cliente('11.632.388-5', 'Cliente 5', 'cliente5@gmail.com', 'Calle 5 Nº321'));
-    this.clientes.push(new Cliente('19.784.104-7', 'Cliente 7', 'cliente7@gmail.com', 'Calle 7 Nº564'));
+  constructor(
+    @InjectRepository(Cliente) private readonly clienteRepository: Repository<Cliente>,
+  )
+   {}
+
+  async create(createClienteDto: CreateClienteDto) : Promise<GetClienteDto> {
+    const cliente : Cliente = ClienteMapper.dtoToEntity(createClienteDto);
+    const clienteGuardado = await this.clienteRepository.save(cliente);
+    return ClienteMapper.entityToDto(clienteGuardado);
   }
+  
 
-  create(createClienteDto: CreateClienteDto): string {
-    this.clientes.push(new Cliente(createClienteDto.rut, createClienteDto.nombre, createClienteDto.correo, createClienteDto.direccion));
-    return 'Cliente created successfully';
-  }
-
-  findAll():Cliente[] {
+  /*findAll():Cliente[] {
     return this.clientes;
-  }
+  }*/
 
 }
+

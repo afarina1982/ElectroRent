@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArriendoDto } from './dto/create-arriendo.dto';
 import { UpdateArriendoDto } from './dto/update-arriendo.dto';
-import { Arriendo } from './entities/arriendo.entity';
+import { Arriendo } from '../orm/entity/arriendo.entity';
+
 
 @Injectable()
 export class ArriendosService {

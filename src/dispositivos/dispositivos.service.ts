@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDispositivoDto } from './dto/create-dispositivo.dto';
-import { UpdateDispositivoDto } from './dto/update-dispositivo.dto';
 import { Dispositivo } from '../orm/entity/dispositivo.entity';
 
 @Injectable()

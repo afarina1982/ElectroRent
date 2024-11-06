@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { version } from 'os';
+import { ClientesModule } from './clientes/clientes.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,9 +13,12 @@ async function bootstrap() {
   .addTag('ElectroRent')
   .build();
 
-const document = SwaggerModule.createDocument(app, config);
+const document = SwaggerModule.createDocument(app, config, {
+  include: [ClientesModule],
+});
+
 SwaggerModule.setup('api', app, document, {yamlDocumentUrl: 'swagger/yaml',});
   
-await app.listen(process.env.PUERTO_NESTJS ?? 3000);
+await app.listen(process.env.PUERTO_NESTJS);
 }
 bootstrap();

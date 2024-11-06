@@ -18,10 +18,5 @@ export class Cliente {
     @OneToMany(() => Arriendo, a => a.clientes) 
     arriendos:Arriendo[];
 
-    constructor(rut: string, nombre: string, correo: string, direccion: string) {
-        this.rut = rut;
-        this.nombre = nombre;
-        this.correo = correo;
-        this.direccion = direccion;
     }
-}
+
