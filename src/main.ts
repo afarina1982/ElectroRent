@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ClientesModule } from './clientes/clientes.module';
 import { ValidationPipe } from '@nestjs/common';
 import { CategoriasModule } from './categorias/categorias.module';
+import { DispositivosModule } from './dispositivos/dispositivos.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,7 +25,7 @@ app.useGlobalPipes(new ValidationPipe({
   .build();
 
 const document = SwaggerModule.createDocument(app, config, {
-  include: [ClientesModule,CategoriasModule],
+  include: [ClientesModule,CategoriasModule, DispositivosModule],
 });
 
 SwaggerModule.setup('api', app, document, {yamlDocumentUrl: 'swagger/yaml',});

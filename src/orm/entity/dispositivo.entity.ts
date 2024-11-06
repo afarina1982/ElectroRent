@@ -26,7 +26,7 @@ export class Dispositivo {
 
     @ManyToOne(() => Categoria)
     @JoinColumn({ name: 'id_categoria' })
-    categoria: Categoria
+    categoria: Categoria;
 
     @ManyToMany(() => Arriendo)
     @JoinTable({
@@ -36,17 +36,8 @@ export class Dispositivo {
     })
     dis_arrendados: Arriendo[];
 
-
-    @OneToMany(() => Inventario, i => i.id_dispositivo)
-    inventario:Inventario[];
-
-
-    constructor(id: string, codigo: string, marca: string, modelo: string, estado: string, id_categoria: number) {
-        this.id = id;
-        this.codigo = codigo;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.estado = estado;
-        this.id_categoria = id_categoria;
-    }
+    // Asegúrate de que 'id_dispositivo' en Inventario exista y sea un string
+    @OneToMany(() => Inventario, (inventario) => inventario.dispositivo)
+    inventario: Inventario[];
 }
+

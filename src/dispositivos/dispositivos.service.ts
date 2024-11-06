@@ -1,24 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDispositivoDto } from './dto/create-dispositivo.dto';
 import { Dispositivo } from '../orm/entity/dispositivo.entity';
+import { Inventario } from '../orm/entity/inventario.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { GetDispositivoDto } from './dto/get-dispositivo.dto';
+import { DispositivoMapper } from './mapper/dipositivo.mapper';
+
 
 @Injectable()
 export class DispositivosService {
 
-dispositivo: Dispositivo[] = [];  
+  constructor(
+    @InjectRepository(Dispositivo) private readonly dispositivoRepository: Repository<Dispositivo>,
+    @InjectRepository(Inventario) private readonly inventarioRepository: Repository<Inventario>,
+  ) { }
 
-constructor() {
-  this.dispositivo.push(new Dispositivo('94211476-8d5c-4c23-a0f5-0e4d23d84cee', 'NOT-01', 'Samsung', 'Modelo1', 'NUEVO', 1));
-  this.dispositivo.push(new Dispositivo('0f749b14-4340-49fe-9320-a511a7e5e0ce', 'SMA-06', 'Acer', 'Modelo6', 'FUERA_DE_SERVICIO', 2));
-}
-
-  create(createDispositivoDto: CreateDispositivoDto): string {
-    this.dispositivo.push(new Dispositivo(createDispositivoDto.id, createDispositivoDto.codigo, createDispositivoDto.marca, createDispositivoDto.modelo, createDispositivoDto.estado, createDispositivoDto.id_categoria));
-    return 'Dispositivo creado con éxito';
+  async create(createDispositivoDto: CreateDispositivoDto): Promise<GetDispositivoDto> {
+    const dispositivo: Dispositivo = DispositivoMapper.dtoToEntity(createDispositivoDto);
+    const dispositivoGuardado = await this.dispositivoRepository.save(dispositivo);
+    return DispositivoMapper.entityToDto(dispositivoGuardado);
   }
 
-  findAll(): Dispositivo[] {
-    return this.dispositivo;
+  async findAll(): Promise<GetDispositivoDto[]> {
+    const dispositivosGuardados = await this.dispositivoRepository.find();
+    return dispositivosGuardados.map(dispositivo => DispositivoMapper.entityToDto(dispositivo));
   }
 
+  async findDisponibles(filters: { categoria?: string; estado?: string; estado_inventario?: string }): Promise<Dispositivo[]> {
+    const query = this.dispositivoRepository.createQueryBuilder('dispositivo')
+      .leftJoinAndSelect('dispositivo.inventario', 'inventario') 
+      .where('inventario.estado_inventario = :estado_inventario', { estado_inventario: filters.estado_inventario || 'DISPONIBLE' });
+
+   
+    if (filters.categoria) {
+      query.andWhere('dispositivo.id_categoria = :categoria', { categoria: filters.categoria });
+    }
+
+
+    if (filters.estado) {
+      query.andWhere('dispositivo.estado = :estado', { estado: filters.estado });
+    }
+
+    return query.getMany();
+  }
 }

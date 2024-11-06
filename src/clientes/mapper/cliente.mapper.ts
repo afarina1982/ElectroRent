@@ -21,6 +21,7 @@ export class ClienteMapper {
         dto.direccion = entity.direccion;
         return dto;
     }
+    
 }
 
 
