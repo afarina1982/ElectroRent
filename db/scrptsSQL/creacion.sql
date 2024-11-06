@@ -1,6 +1,6 @@
-CREATE DATABASE `electrorent`;
+CREATE DATABASE `electrorentDB`;
 
-USE `electrorent`;
+USE `electrorentDB`;
 
 CREATE TABLE `cliente` (
   `rut` VARCHAR(12) PRIMARY KEY NOT NULL,

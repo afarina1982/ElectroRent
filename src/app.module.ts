@@ -7,9 +7,10 @@ import { ArriendoDispositivosModule } from './arriendo_dispositivos/arriendo_dis
 import { CategoriasModule } from './categorias/categorias.module';
 import { InventariosModule } from './inventarios/inventarios.module';
 import { DispositivosModule } from './dispositivos/dispositivos.module';
+import { OrmModule } from './orm/orm.module';
 
 @Module({
-  imports: [ArriendosModule, ClientesModule, ArriendoDispositivosModule, CategoriasModule, InventariosModule, DispositivosModule],
+  imports: [ArriendosModule, ClientesModule, ArriendoDispositivosModule, CategoriasModule, InventariosModule, DispositivosModule, OrmModule],
   controllers: [AppController],
   providers: [AppService],
 })
