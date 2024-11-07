@@ -9,7 +9,7 @@ export class GetArriendoDto extends PartialType(CreateArriendoDto) {
     id: string;
 
     @IsString({ message: 'El rut del cliente debe ser un string' })
-    @ApiProperty({ description: 'Rut del cliente', default: '12.345.678-9' })
+    @ApiProperty({ description: 'Rut del cliente', default: '13.452.258-7' })
     rut_cliente: string;
 
     @IsDateString({}, { message: 'La fecha de inicio debe ser una fecha en formato AAAA-MM-DD' })
@@ -23,4 +23,7 @@ export class GetArriendoDto extends PartialType(CreateArriendoDto) {
     @IsNumber({}, { message: 'El costo total del arriendo debe ser un número' })
     @ApiProperty({ description: 'Costo total del arriendo', default: 10000 })
     costo_total: number;
+
+    @ApiProperty({description: 'codigo del dispositivo',default:['0475b5ca-0728-4db3-bc94-d46f26047259','0f79a24e-e126-4741-bcfb-c7cedf8ff40b']})
+    dispositivo: string[];
 }

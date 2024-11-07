@@ -23,6 +23,6 @@ export class GetDispositivoDto {
     public estado: string;
 
     @IsString({ message: 'El código del dispositivo debe ser un string' })
-    @ApiProperty({ type: 'string', example: '123456', description: 'Código del dispositivo' })
+    @ApiProperty({ type: 'string', example: '1', description: 'Código del dispositivo' })
     public id_categoria: number;
 }
