@@ -17,7 +17,7 @@ export class ArriendosController {
     const { rut_cliente, fecha_inicio, fecha_fin, costo_total, dispositivos } = crearArriendoDto;
     return await this.arriendosService.crearArriendo(rut_cliente, fecha_inicio, fecha_fin, costo_total, dispositivos);
   }
-
+@ApiResponse({ status: 200, type: [Arriendo], description: 'Se han encontrado los arriendos activos' })
 @Get ('cliente/:rut')
 @ApiResponse({ status: 200, type: [Arriendo], description: 'Se han encontrado los arriendos del cliente' })
 async obtenerArriendosActivos(@Param('rut') rut: string): Promise<Arriendo[]> {
