@@ -1,36 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArriendoDto } from './dto/create-arriendo.dto';
-import { UpdateArriendoDto } from './dto/update-arriendo.dto';
+import { GetArriendoDto } from './dto/get-arriendo.dto';
 import { Arriendo } from '../orm/entity/arriendo.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ArriendoMapper } from './mapper/arriendo.mapper';
 
 
 @Injectable()
 export class ArriendosService {
-arriendo: Arriendo[] = [];
 
-constructor() {
-  this.arriendo.push(new Arriendo("1", "12345678-9", new Date(), new Date(), 10000));
-  this.arriendo.push(new Arriendo("2", "12345678-9", new Date(), new Date(), 10000));
-  this.arriendo.push(new Arriendo("3", "12345678-9", new Date(), new Date(), 10000));
+constructor(@InjectRepository(Arriendo) private arriendoRepository: Repository<Arriendo>) {
+  
 }
 
-  create(createArriendoDto: CreateArriendoDto) {
-    return 'This action adds a new arriendo';
+  async create(createArriendoDto: CreateArriendoDto): Promise<GetArriendoDto> {
+    const arriendo: Arriendo = ArriendoMapper.dtoToEntity(createArriendoDto);
+    const arriendoGuardado = await this.arriendoRepository.save(arriendo);
+    return ArriendoMapper.entityToDto(arriendoGuardado);
   }
 
-  findAll() {
-    return `This action returns all arriendos`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} arriendo`;
-  }
-
-  update(id: number, updateArriendoDto: UpdateArriendoDto) {
-    return `This action updates a #${id} arriendo`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} arriendo`;
-  }
+  
 }

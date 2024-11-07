@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import { Categoria } from "./categoria.entity";
 import { Arriendo } from "./arriendo.entity";
 import { Inventario } from "./inventario.entity";
@@ -6,7 +6,7 @@ import { Inventario } from "./inventario.entity";
 @Entity({ name: 'dispositivo' })
 export class Dispositivo {
 
-    @PrimaryColumn({ name: 'id' })
+    @PrimaryGeneratedColumn('uuid',{name:'id'})
     public id: string;
 
     @Column({ name: 'codigo' })

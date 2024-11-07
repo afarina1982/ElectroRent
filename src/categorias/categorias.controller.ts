@@ -20,5 +20,5 @@ export class CategoriasController {
     return await this.categoriasService.findAll();
   }
 
- 
+
 }

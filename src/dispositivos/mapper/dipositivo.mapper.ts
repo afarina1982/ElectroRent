@@ -5,7 +5,7 @@ import { GetDispositivoDto } from "src/dispositivos/dto/get-dispositivo.dto";
 export class DispositivoMapper {
     static dtoToEntity(dto:CreateDispositivoDto): Dispositivo {
         const entity = new Dispositivo();
-        entity.id = dto.id;
+    
         entity.codigo = dto.codigo;
         entity.marca = dto.marca;
         entity.modelo = dto.modelo;
