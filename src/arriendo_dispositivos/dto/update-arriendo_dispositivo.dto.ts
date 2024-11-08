@@ -8,7 +8,7 @@ export class UpdateArriendoDispositivoDto extends PartialType(CreateArriendoDisp
     @ApiProperty()
     id_arriendo: string;
     @IsUUID(4, { message: 'El id_arriendo debe ser un UUID' })
-   @ApiProperty()
+    @ApiProperty()
     id_dispositivo: string;
 }
 

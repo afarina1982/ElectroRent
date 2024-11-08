@@ -11,7 +11,7 @@ export class GetClienteDto {
 
     @IsString({ message: 'El nombre del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El nombre del comprador no puede estar vacío' })
-    @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
+    @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) 
     public nombre: string;
 
    @IsEmail({}, { message: 'El correo electrónico no tiene un formato válido' })    

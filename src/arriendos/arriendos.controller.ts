@@ -3,10 +3,6 @@ import { ArriendosService } from './arriendos.service';
 import { CreateArriendoDto } from './dto/create-arriendo.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { Arriendo } from 'src/orm/entity/arriendo.entity';
-import { ValidacionExistenciaPipe } from 'src/commons/validacion-existencia-cliente.pipe';
-
-
-
 
 @Controller('arriendos')
 export class ArriendosController {

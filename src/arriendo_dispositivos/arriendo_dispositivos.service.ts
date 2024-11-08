@@ -4,6 +4,7 @@ import { UpdateArriendoDispositivoDto } from './dto/update-arriendo_dispositivo.
 
 @Injectable()
 export class ArriendoDispositivosService {
+  
   create(createArriendoDispositivoDto: CreateArriendoDispositivoDto) {
     return 'This action adds a new arriendoDispositivo';
   }

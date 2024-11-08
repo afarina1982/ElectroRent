@@ -8,7 +8,7 @@ export class GetArriendoDto extends PartialType(CreateArriendoDto) {
     @ApiProperty({ description: 'Id del arriendo en formato UUID 4', default: '123e4567-e89b-12d3-a456-426614174000' })
     id: string;
 
-    @IsString({ message: 'El rut del cliente debe ser un string' })
+    @IsString({ message: 'El rut del cliente debe ser un string en formato xx.xxx.xxx-x' })
     @ApiProperty({ description: 'Rut del cliente', default: '13.452.258-7' })
     rut_cliente: string;
 

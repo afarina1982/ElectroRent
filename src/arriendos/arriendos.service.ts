@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArriendoDto } from './dto/create-arriendo.dto';
-import { GetArriendoDto } from './dto/get-arriendo.dto';
 import { Arriendo } from '../orm/entity/arriendo.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThanOrEqual, Repository } from 'typeorm';
-import { ArriendoMapper } from './mapper/arriendo.mapper';
 import { ArriendoDispositivo } from 'src/orm/entity/arriendo_dispositivo.entity';
 import { Dispositivo } from 'src/orm/entity/dispositivo.entity';
 

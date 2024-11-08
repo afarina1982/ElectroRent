@@ -3,7 +3,7 @@ import { IsArray, IsDateString, IsNotEmpty, IsNumber, IsString, IsUUID } from "c
 import { Dispositivo } from "src/orm/entity/dispositivo.entity";
 
 export class CreateArriendoDto {
-    @IsString({ message: 'El rut del cliente debe ser un string' })
+    @IsString({ message: 'El rut del cliente debe ser un string en formato xx.xxx.xxx-x' })
     @ApiProperty({ description: 'Rut del cliente', default: '13.452.258-7' })
     rut_cliente: string;
 
@@ -24,8 +24,7 @@ export class CreateArriendoDto {
     @ApiProperty({
         description: 'Códigos de los dispositivos',
         type: [String],
-        default: ['0475b5ca-0728-4db3-bc94-d46f26047259', '0f79a24e-e126-4741-bcfb-c7cedf8ff40b']
-    })
+        default: ['0475b5ca-0728-4db3-bc94-d46f26047259', '0f79a24e-e126-4741-bcfb-c7cedf8ff40b'] })
     dispositivos: string[];
 }
 

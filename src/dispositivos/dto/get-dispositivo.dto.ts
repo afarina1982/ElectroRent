@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsUUID } from "class-validator";
+import { EstadoDispositivo } from "src/enum/estado_dispositivo";
 
 export class GetDispositivoDto {
     @IsUUID('4', { message: 'El id debe ser un UUID version 4' })
@@ -19,7 +20,7 @@ export class GetDispositivoDto {
     public modelo: string;
     
     @IsString({ message: 'El código del dispositivo debe ser un string' })
-    @ApiProperty({})
+    @ApiProperty({default: 'Nuevo', description: 'Estado del dispositivo', enum:EstadoDispositivo })
     public estado: string;
 
     @IsString({ message: 'El código del dispositivo debe ser un string' })
