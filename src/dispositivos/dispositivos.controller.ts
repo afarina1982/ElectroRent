@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Put } from '@nestjs/common';
 import { DispositivosService } from './dispositivos.service';
 import { CreateDispositivoDto } from './dto/create-dispositivo.dto';
 import { ApiResponse } from '@nestjs/swagger';
@@ -18,6 +18,7 @@ export class DispositivosController {
     return await this.dispositivosService.create(createDispositivoDto);
   }
 
+  @ApiResponse({ status: 200, type: [Dispositivo], description: 'Se han encontrado los dispositivos' })
   @Get('disponibles')
   @ApiQuery({ name: 'categoria', required: false, description: 'Filtrar por categoría del dispositivo' })
   @ApiQuery({ name: 'estado', required: false, description: 'Filtrar por estado del dispositivo' })
@@ -27,7 +28,7 @@ export class DispositivosController {
   ): Promise<Dispositivo[]> {
     return this.dispositivosService.findDisponibles(filters);
   }
- 
+
 }
 
 

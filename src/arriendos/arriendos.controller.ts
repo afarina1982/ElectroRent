@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ArriendosService } from './arriendos.service';
 import { CreateArriendoDto } from './dto/create-arriendo.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { Arriendo } from 'src/orm/entity/arriendo.entity';
+
 
 @Controller('arriendos')
 export class ArriendosController {
@@ -21,25 +22,20 @@ export class ArriendosController {
   async obtenerArriendosActivos(@Param('rut') rut: string): Promise<Arriendo[]> {
     return await this.arriendosService.obtenerArriendosActivos(rut);
   }
+  
+  //@Put(':id/devolver')
+  //async devolverArriendo(@Param('id') id: string) {
+  //  return await this.arriendosService.devolverArriendo(id);
+  //}
 
-}
-/*@Get()
-findAll() {
-  return this.arriendosService.findAll();
-}
-
-@Get(':id')
-findOne(@Param('id') id: string) {
-  return this.arriendosService.findOne(+id);
-}
-
-@Patch(':id')
-update(@Param('id') id: string, @Body() updateArriendoDto: UpdateArriendoDto) {
-  return this.arriendosService.update(+id, updateArriendoDto);
+  //@Get()  // Ruta GET con parámetros de consulta
+  //async obtenerArriendosPorFecha(
+  //  @Query('fecha_inicio') fechaInicio: string,
+  //  @Query('fecha_fin') fechaFin: string
+ // ) {
+  //  console.log(`Obteniendo arriendos desde ${fechaInicio} hasta ${fechaFin}`);
+  //  return { message: `Arriendos entre ${fechaInicio} y ${fechaFin}` }; 
+  
 }
 
-@Delete(':id')
-remove(@Param('id') id: string) {
-  return this.arriendosService.remove(+id);
-}*/
 

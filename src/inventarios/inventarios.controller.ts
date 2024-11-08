@@ -7,28 +7,10 @@ import { UpdateInventarioDto } from './dto/update-inventario.dto';
 export class InventariosController {
   constructor(private readonly inventariosService: InventariosService) {}
 
-  @Post()
-  create(@Body() createInventarioDto: CreateInventarioDto) {
-    return this.inventariosService.create(createInventarioDto);
-  }
+ 
+ 
+  //@Get('dispositivo/:id') 
+  //async obtenerDispositivo(@Param('id') id: string) {
+  //  return { message: `Dispositivo con ID ${id}` };  
 
-  @Get()
-  findAll() {
-    return this.inventariosService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.inventariosService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInventarioDto: UpdateInventarioDto) {
-    return this.inventariosService.update(+id, updateInventarioDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.inventariosService.remove(+id);
-  }
 }
