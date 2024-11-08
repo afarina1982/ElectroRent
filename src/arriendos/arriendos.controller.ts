@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ArriendosService } from './arriendos.service';
 import { CreateArriendoDto } from './dto/create-arriendo.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Arriendo } from 'src/orm/entity/arriendo.entity';
 
 
@@ -22,8 +22,9 @@ export class ArriendosController {
   //async obtenerArriendosActivos(@Param('rut') rut: string): Promise<Arriendo[]> {
   //  return await this.arriendosService.obtenerArriendosActivos(rut);
   //}
-
-  @Get('cliente/:rut')  // Ruta específica para obtener los dispositivos arrendados de un cliente usando su rut
+  @ApiResponse({ status: 200, type: [Arriendo], description: 'Se han encontrado los arriendos del cliente' })
+  @Get('cliente/:rut')  
+  @ApiOperation({ summary: 'Obtener arriendos por cliente' })
   async getArrendadosPorCliente(@Param('rut') rut_cliente: string): Promise<any[]> {
     return this.arriendosService.findByClienteId(rut_cliente);
   }
