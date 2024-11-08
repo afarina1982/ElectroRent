@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ArriendosService } from './arriendos.service';
 import { CreateArriendoDto } from './dto/create-arriendo.dto';
 import { ApiResponse } from '@nestjs/swagger';
-import { GetArriendoDto } from './dto/get-arriendo.dto';
 import { Arriendo } from 'src/orm/entity/arriendo.entity';
+import { ValidacionExistenciaPipe } from 'src/commons/validacion-existencia-cliente.pipe';
+
 
 
 
@@ -17,12 +18,13 @@ export class ArriendosController {
     const { rut_cliente, fecha_inicio, fecha_fin, costo_total, dispositivos } = crearArriendoDto;
     return await this.arriendosService.crearArriendo(rut_cliente, fecha_inicio, fecha_fin, costo_total, dispositivos);
   }
-@ApiResponse({ status: 200, type: [Arriendo], description: 'Se han encontrado los arriendos activos' })
-@Get ('cliente/:rut')
-@ApiResponse({ status: 200, type: [Arriendo], description: 'Se han encontrado los arriendos del cliente' })
-async obtenerArriendosActivos(@Param('rut') rut: string): Promise<Arriendo[]> {
-  return await this.arriendosService.obtenerArriendosActivos(rut);
-}
+
+  @ApiResponse({ status: 200, type: [Arriendo], description: 'Se han encontrado los arriendos activos' })
+  @Get('cliente/:rut')
+  @ApiResponse({ status: 200, type: [Arriendo], description: 'Se han encontrado los arriendos del cliente' })
+  async obtenerArriendosActivos(@Param('rut') rut: string): Promise<Arriendo[]> {
+    return await this.arriendosService.obtenerArriendosActivos(rut);
+  }
 
 }
 /*@Get()

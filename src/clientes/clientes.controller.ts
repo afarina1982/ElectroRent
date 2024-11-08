@@ -3,7 +3,10 @@ import { ClientesService } from './clientes.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { GetClienteDto } from './dto/get-create-cliente.dto';
 import { ApiResponse } from '@nestjs/swagger';
-import { ValidacionClientePipe } from 'src/commons/validacion-cliente.pipe';
+import { ValidacionClienteNuevoPipe } from 'src/commons/validacion-cliente-nuevo.pipe';
+
+
+
 
 @Controller('clientes')
 export class ClientesController {
@@ -12,7 +15,7 @@ export class ClientesController {
 
   @ApiResponse({ status: 201, type: GetClienteDto, description: 'El cliente ha sido creado correctamente' })
   @Post()
-  async create(@Body(ValidacionClientePipe) createClienteDto: CreateClienteDto): Promise<GetClienteDto> {
+  async create(@Body(ValidacionClienteNuevoPipe) createClienteDto: CreateClienteDto): Promise<GetClienteDto> {
     return await this.clientesService.create(createClienteDto);
   }
 

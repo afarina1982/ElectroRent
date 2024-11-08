@@ -6,6 +6,7 @@ import { Arriendo } from 'src/orm/entity/arriendo.entity';
 import { Dispositivo } from 'src/orm/entity/dispositivo.entity';
 import { ArriendoDispositivo } from 'src/orm/entity/arriendo_dispositivo.entity';
 
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([Arriendo,Dispositivo,ArriendoDispositivo]),
