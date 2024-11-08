@@ -6,6 +6,7 @@ import { Categoria } from './entity/categoria.entity';
 import { Dispositivo } from './entity/dispositivo.entity';
 import { In } from 'typeorm';
 import { Inventario } from './entity/inventario.entity';
+import { ArriendoDispositivo } from './entity/arriendo_dispositivo.entity';
 
 @Module({
     imports: [
@@ -21,7 +22,8 @@ import { Inventario } from './entity/inventario.entity';
                 Cliente,
                 Categoria,
                 Dispositivo,
-                Inventario
+                Inventario,
+                ArriendoDispositivo,
             ],
         })
     ],

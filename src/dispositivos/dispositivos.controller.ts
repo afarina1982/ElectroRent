@@ -8,6 +8,7 @@ import { ApiQuery } from '@nestjs/swagger';
 
 
 
+
 @Controller('dispositivos')
 export class DispositivosController {
   constructor(private readonly dispositivosService: DispositivosService) { }
@@ -28,7 +29,11 @@ export class DispositivosController {
   ): Promise<Dispositivo[]> {
     return this.dispositivosService.findDisponibles(filters);
   }
-
+  
+  @Get('arrendados')  
+  async getArrendados(): Promise<Dispositivo[]> {
+    return this.dispositivosService.findArrendados();
+  }
 }
 
 

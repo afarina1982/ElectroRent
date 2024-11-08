@@ -50,4 +50,31 @@ async obtenerArriendosActivos(rut: string): Promise<Arriendo[]> {
 
 });
 }
+async findByClienteId(clienteId: string): Promise<any[]> {
+  // Paso 1: Obtener los arriendos del cliente
+  const arriendos = await this.arriendoRepository.createQueryBuilder('arriendo')
+    .where('arriendo.rut_cliente = :clienteId', { clienteId })
+    .getMany();
+
+  // Paso 2: Obtener los id_arriendo de los arriendos encontrados
+  const idArriendos = arriendos.map(arriendo => arriendo.id);
+
+  // Paso 3: Buscar las relaciones en la tabla Arriendo_Dispositivo usando los id_arriendo
+  const arriendosDispositivos = await this.arriendoDispositivoRepository.createQueryBuilder('arriendoDispositivo')
+    .where('arriendoDispositivo.id_arriendo IN (:...idArriendos)', { idArriendos })
+    .getMany();
+
+  // Paso 4: Obtener los id_dispositivo de las relaciones encontradas
+  const idDispositivosArrendados = arriendosDispositivos.map(ad => ad.id_dispositivo);
+
+  // Paso 5: Obtener los dispositivos arrendados usando los id_dispositivo
+  const dispositivos = await this.dispositivoRepository.createQueryBuilder('dispositivo')
+    .where('dispositivo.id IN (:...idDispositivosArrendados)', { idDispositivosArrendados })
+    .getMany();
+
+  // Paso 6: Devolver los dispositivos con sus detalles
+  return dispositivos;
+}
+
+
 }
